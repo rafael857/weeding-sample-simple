@@ -8,28 +8,29 @@
     <title>Undangan Pernikahan - Ayu &amp; Budi</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #faf6f2;
-            --accent: #b77a6c;
-            --accent-light: #d4a59a;
-            --muted: #8b7e76;
+            --bg: #1a1215;
+            --bg-warm: #2a1f1b;
+            --accent: #c8957a;
+            --accent-light: #dbb8a8;
+            --muted: #a89890;
             --gold: #c9a96e;
-            --card: #ffffff;
-            --text: #2d2926;
-            --focus-ring: 0 0 0 3px rgba(183,122,108,0.4);
+            --card: #1f1815;
+            --card-2: #241c18;
+            --text: #f0e8e2;
+            --text-dim: #c4b8b0;
+            --focus-ring: 0 0 0 3px rgba(200,149,122,0.5);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-            background: linear-gradient(180deg, var(--bg) 0%, #fff 100%);
+            background: var(--bg);
             color: var(--text);
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            min-height: 100vh;
-            line-height: 1.7;
+            overflow-x: hidden;
         }
         .skip-link {
             position: absolute;
@@ -38,245 +39,301 @@
             background: var(--accent);
             color: #fff;
             padding: 8px 16px;
-            z-index: 100;
+            z-index: 1000;
             text-decoration: none;
             border-radius: 0 0 8px 0;
             transition: top 0.3s;
         }
         .skip-link:focus { top: 0; }
 
-        .wrapper {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 40px 24px;
-        }
-        .card {
-            background: var(--card);
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(45,41,38,0.08), 0 8px 20px rgba(45,41,38,0.04);
-            overflow: hidden;
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            position: relative;
-        }
-        @media (max-width: 860px) {
-            .card { grid-template-columns: 1fr; }
-            .art { order: -1; }
-            .content { padding: 36px 28px; }
-            .names { font-size: 32px; }
-            .title { font-size: 26px; }
+        .scroll-container {
+            height: 100vh;
+            overflow-y: auto;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
         }
 
-        .content {
-            padding: 56px 48px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 20px;
-        }
-        .ornament {
+        .section {
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            color: var(--accent);
-            opacity: 0.7;
-            font-size: 14px;
+            scroll-snap-align: start;
+            position: relative;
+            overflow: hidden;
+            padding: 40px 24px;
+        }
+
+        .section::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 50%, rgba(200,149,122,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* ===== SECTION 1: HERO ===== */
+        .hero {
+            background: linear-gradient(180deg, #1a1215 0%, #231a16 40%, #1f1815 100%);
+            flex-direction: column;
+            gap: 28px;
+            text-align: center;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 20px;
+            border: 1px solid rgba(200,149,122,0.3);
+            border-radius: 50px;
+            font-size: 11px;
             letter-spacing: 4px;
             text-transform: uppercase;
-            margin-bottom: 8px;
+            color: var(--accent);
+            animation: fadeDown 1s ease-out;
         }
-        .ornament::before,
-        .ornament::after {
-            content: "";
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            max-width: 60px;
+        .hero-badge::before,
+        .hero-badge::after {
+            content: "✦";
+            font-size: 8px;
+            opacity: 0.6;
         }
-        .title {
+        .hero-title {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            color: var(--accent);
-            font-size: 22px;
+            color: var(--accent-light);
+            font-size: clamp(20px, 3vw, 28px);
             font-weight: 400;
             letter-spacing: 1px;
-            line-height: 1.4;
+            animation: fadeDown 1s ease-out 0.2s both;
         }
-        .names {
+        .hero-names {
             font-family: 'Playfair Display', serif;
-            font-size: 44px;
+            font-size: clamp(42px, 7vw, 80px);
             color: var(--text);
             font-weight: 700;
-            line-height: 1.15;
-            position: relative;
-            display: inline-block;
+            line-height: 1.1;
+            animation: fadeUp 1s ease-out 0.4s both;
         }
-        .names .amp {
+        .hero-names .amp {
+            display: inline-block;
             color: var(--accent);
             font-style: italic;
             font-weight: 400;
-            margin: 0 6px;
-        }
-        .meta {
-            color: var(--muted);
-            font-size: 15px;
-            font-weight: 300;
-            letter-spacing: 0.5px;
-            line-height: 1.8;
-        }
-        .meta strong {
-            color: var(--text);
-            font-weight: 500;
-        }
-        .details-box {
-            margin-top: 12px;
-            padding: 24px;
-            background: linear-gradient(135deg, #fdf9f6 0%, #fdf5f1 100%);
-            border-radius: 14px;
-            border: 1px solid rgba(183,122,108,0.12);
+            margin: 0 0.15em;
             position: relative;
         }
-        .details-box::before {
+        .hero-venue-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            background: rgba(200,149,122,0.1);
+            border: 1px solid rgba(200,149,122,0.2);
+            border-radius: 50px;
+            font-size: 13px;
+            color: var(--text-dim);
+            letter-spacing: 0.5px;
+            animation: fadeUp 1s ease-out 0.6s both;
+        }
+        .hero-venue-badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 12px rgba(200,149,122,0.6);
+        }
+        .hero-scroll-hint {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--muted);
+            animation: bounce 2s ease-in-out infinite;
+        }
+        .hero-scroll-hint .mouse {
+            width: 22px;
+            height: 34px;
+            border: 2px solid rgba(200,149,122,0.4);
+            border-radius: 12px;
+            position: relative;
+        }
+        .hero-scroll-hint .mouse::after {
             content: "";
             position: absolute;
             top: 8px;
             left: 50%;
             transform: translateX(-50%);
-            width: 40px;
-            height: 2px;
+            width: 3px;
+            height: 6px;
+            border-radius: 3px;
             background: var(--accent);
-            border-radius: 2px;
-            opacity: 0.5;
+            animation: scrollDot 2s ease-in-out infinite;
         }
-        .details-box p {
-            color: var(--muted);
-            font-size: 15px;
+
+        /* ===== SECTION 2: QUOTE ===== */
+        .quote-section {
+            background: linear-gradient(180deg, #1f1815 0%, #1a1512 100%);
             text-align: center;
-            line-height: 1.7;
+            flex-direction: column;
+            gap: 32px;
         }
-        .event-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-top: 8px;
-        }
-        @media (max-width: 500px) {
-            .event-row { grid-template-columns: 1fr; }
-        }
-        .event-item {
-            text-align: center;
-            padding: 16px 12px;
-            background: #fff;
-            border-radius: 10px;
-            border: 1px solid rgba(183,122,108,0.1);
-        }
-        .event-item .label {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--accent);
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
-        .event-item .time {
+        .quote-mark {
             font-family: 'Playfair Display', serif;
-            font-size: 18px;
-            color: var(--text);
-            font-weight: 700;
+            font-size: 120px;
+            color: var(--accent);
+            opacity: 0.3;
+            line-height: 0.5;
+            animation: fadeUp 1s ease-out;
         }
-        .event-item .venue {
-            font-size: 13px;
-            color: var(--muted);
-            margin-top: 4px;
+        .arabic {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            color: var(--accent-light);
+            line-height: 2;
+            direction: rtl;
+            opacity: 0.8;
+            max-width: 500px;
         }
-        .quote {
-            text-align: center;
+        .quote-text {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            color: var(--accent);
-            font-size: 16px;
-            margin-top: 12px;
-            position: relative;
-            padding: 0 20px;
+            font-size: clamp(22px, 3.5vw, 32px);
+            color: var(--text);
+            max-width: 700px;
+            line-height: 1.5;
         }
-        .quote::before,
-        .quote::after {
-            content: '"';
-            font-size: 32px;
-            color: var(--accent-light);
-            position: absolute;
-            opacity: 0.5;
-            font-family: 'Playfair Display', serif;
+        .quote-ref {
+            font-size: 13px;
+            color: var(--muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
-        .quote::before { top: -8px; left: -4px; }
-        .quote::after { bottom: -20px; right: -4px; }
+        .ornament-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 8px 0;
+        }
+        .ornament-divider .line {
+            width: 50px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+        .ornament-divider .diamond {
+            width: 8px;
+            height: 8px;
+            border: 1px solid var(--accent);
+            transform: rotate(45deg);
+        }
 
-        .art {
-            background: linear-gradient(180deg, #f7ede6 0%, #fdf6f1 50%, #fef9f6 100%);
-            padding: 48px 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* ===== SECTION 3: WEDDING EVENTS ===== */
+        .events-section {
+            background: linear-gradient(180deg, #1a1512 0%, #1f1815 50%, #231a16 100%);
             flex-direction: column;
-            gap: 24px;
-            position: relative;
-            overflow: hidden;
+            gap: 40px;
+            text-align: center;
         }
-        .art::before {
-            content: "";
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(201,169,110,0.08) 0%, transparent 70%);
-            top: -80px;
-            right: -80px;
+        .events-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--accent);
         }
-        .art::after {
-            content: "";
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(183,122,108,0.06) 0%, transparent 70%);
-            bottom: -40px;
-            left: -40px;
+        .events-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 700px;
+            width: 100%;
         }
-        .monogram-outer {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            position: relative;
+        @media (max-width: 560px) {
+            .events-grid { grid-template-columns: 1fr; max-width: 340px; }
+        }
+        .event-card {
+            background: var(--card);
+            border: 1px solid rgba(200,149,122,0.15);
+            border-radius: 16px;
+            padding: 28px 20px;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-direction: column;
+            gap: 8px;
+            transition: transform 0.3s, border-color 0.3s;
         }
-        .monogram-outer::before {
-            content: "";
+        .event-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(200,149,122,0.4);
+        }
+        .event-card .event-label {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 500;
+        }
+        .event-card .event-time {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--text);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        .event-card .event-loc {
+            font-size: 13px;
+            color: var(--text-dim);
+            margin-top: 4px;
+        }
+        .event-card .date-tag {
+            margin-top: 12px;
+            display: inline-block;
+            padding: 5px 14px;
+            background: rgba(200,149,122,0.1);
+            border-radius: 50px;
+            font-size: 12px;
+            color: var(--accent-light);
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== SECTION 4: COUPLE ===== */
+        .couple-section {
+            background: linear-gradient(180deg, #231a16 0%, #1e1713 50%, #1a1411 100%);
+            flex-direction: column;
+            gap: 36px;
+            text-align: center;
+        }
+        .monogram-wrap {
+            position: relative;
+            width: 180px;
+            height: 180px;
+        }
+        .monogram-ring {
             position: absolute;
             inset: 0;
             border-radius: 50%;
-            border: 1px solid rgba(183,122,108,0.25);
-            animation: rotate 30s linear infinite;
         }
-        .monogram-outer::after {
-            content: "";
-            position: absolute;
-            inset: 12px;
-            border-radius: 50%;
+        .monogram-ring.outer {
+            border: 1px solid rgba(200,149,122,0.3);
+            animation: rotate 25s linear infinite;
+        }
+        .monogram-ring.inner {
+            inset: 14px;
             border: 1px dashed rgba(201,169,110,0.3);
-            animation: rotate 20s linear infinite reverse;
-        }
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            animation: rotate 18s linear infinite reverse;
         }
         .monogram {
-            width: 160px;
-            height: 160px;
+            position: absolute;
+            inset: 22px;
             border-radius: 50%;
-            background: conic-gradient(from 45deg at 50% 50%, rgba(183,122,108,0.18), rgba(201,169,110,0.1), rgba(183,122,108,0.18));
+            background: conic-gradient(from 30deg, rgba(200,149,122,0.2), rgba(201,169,110,0.08), rgba(200,149,122,0.2));
             display: flex;
             align-items: center;
             justify-content: center;
@@ -284,124 +341,232 @@
             color: var(--accent);
             font-size: 52px;
             font-weight: 700;
-            box-shadow: 0 12px 32px rgba(183,122,108,0.15);
-            position: relative;
-            z-index: 1;
+            box-shadow: 0 10px 40px rgba(200,149,122,0.2);
+            z-index: 2;
         }
-        .art-text {
-            max-width: 240px;
+        .couple-text {
+            max-width: 440px;
+            font-size: 15px;
+            color: var(--text-dim);
+            line-height: 1.8;
+        }
+        .couple-blessing {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--accent-light);
+            font-size: clamp(18px, 2.5vw, 24px);
+            max-width: 500px;
+            line-height: 1.5;
+            margin-top: 8px;
+        }
+
+        /* ===== SECTION 5: FOOTER / RSVP AREA ===== */
+        .footer-section {
+            background: linear-gradient(180deg, #1a1411 0%, #140f0d 100%);
+            flex-direction: column;
+            gap: 20px;
             text-align: center;
-            color: var(--muted);
-            font-size: 14px;
-            line-height: 1.7;
-            position: relative;
-            z-index: 1;
         }
-        .divider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 8px 0;
-        }
-        .divider-dot {
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background: var(--accent);
-            opacity: 0.5;
-        }
-        footer {
-            text-align: center;
-            padding: 28px;
-            color: var(--muted);
+        .footer-note {
             font-size: 13px;
-            font-weight: 300;
-            letter-spacing: 0.5px;
+            color: var(--muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
-        footer a {
+        .footer-email {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(20px, 3vw, 30px);
             color: var(--accent);
             text-decoration: none;
-            font-weight: 500;
-            transition: opacity 0.2s;
+            position: relative;
+            transition: color 0.3s;
         }
-        footer a:hover { text-decoration: underline; }
-        footer a:focus {
-            outline: none;
-            box-shadow: var(--focus-ring);
-            border-radius: 4px;
+        .footer-email::after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--accent);
+            opacity: 0.4;
+            transition: opacity 0.3s;
+        }
+        .footer-email:hover { color: var(--accent-light); }
+        .footer-email:hover::after { opacity: 1; }
+        .footer-email:focus { outline: none; box-shadow: var(--focus-ring); border-radius: 4px; }
+        .footer-bottom {
+            margin-top: 20px;
+            font-size: 12px;
+            color: var(--muted);
+            letter-spacing: 1px;
+        }
+
+        /* ===== DOT NAVIGATION ===== */
+        .dot-nav {
+            position: fixed;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            z-index: 100;
+        }
+        .dot-nav a {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(200,149,122,0.3);
+            border: 1px solid rgba(200,149,122,0.5);
+            transition: background 0.3s, transform 0.3s;
+            text-decoration: none;
+        }
+        .dot-nav a.active,
+        .dot-nav a:hover {
+            background: var(--accent);
+            transform: scale(1.4);
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+        @keyframes scrollDot {
+            0%, 100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            50% { opacity: 0.3; transform: translateX(-50%) translateY(6px); }
         }
 
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
-            .monogram-outer::before,
-            .monogram-outer::after { animation: none; }
+            .scroll-container { scroll-snap-type: none; }
+            .monogram-ring.outer, .monogram-ring.inner { animation: none; }
+            .hero-scroll-hint { animation: none; }
         }
         @media print {
-            body { background: #fff; }
-            .card { box-shadow: none; border-radius: 0; }
-            .monogram-outer::before,
-            .monogram-outer::after { animation: none; }
+            body { background: #fff; color: #000; }
+            .scroll-container { overflow: visible; height: auto; scroll-snap-type: none; }
+            .section { min-height: auto; padding: 20px; scroll-snap-align: none; }
+            .hero { min-height: 60vh; }
         }
     </style>
 </head>
 <body>
     <a class="skip-link" href="#main">Lewati ke konten utama</a>
-    <div class="wrapper">
-        <article class="card" itemscope itemtype="https://schema.org/Event">
-            <section class="content" id="main">
-                <div class="ornament">The Wedding</div>
-                <p class="title">Dengan penuh sukacita</p>
-                <h1 class="names">
-                    <span itemprop="name">Ayu</span>
-                    <span class="amp">&amp;</span>
-                    <span itemprop="name">Budi</span>
-                </h1>
-                <p class="meta">
-                    <time datetime="2026-12-12T10:00:00+07:00" itemprop="startDate">
-                        <strong>Sabtu, 12 Desember 2026</strong><br>
-                        10.00 WIB – Selesai
-                    </time>
-                </p>
 
-                <div class="event-row" itemprop="location" itemscope itemtype="https://schema.org/Place">
-                    <div class="event-item">
-                        <div class="label">Akad Nikah</div>
-                        <div class="time">08.00 - 10.00</div>
-                        <div class="venue" itemprop="name">Gedung Serbaguna Cahaya</div>
-                    </div>
-                    <div class="event-item">
-                        <div class="label">Resepsi</div>
-                        <div class="time">11.00 - 13.00</div>
-                        <div class="venue" itemprop="name">Ballroom Tengah</div>
-                    </div>
-                </div>
+    <nav class="dot-nav" aria-label="Navigasi bagian">
+        <a href="#hero" aria-label="Beranda"></a>
+        <a href="#quote" aria-label="Kutipan"></a>
+        <a href="#events" aria-label="Acara"></a>
+        <a href="#couple" aria-label="Mempelai"></a>
+        <a href="#footer" aria-label="Kontak"></a>
+    </nav>
 
-                <div class="divider">
-                    <span class="divider-dot"></span>
-                    <span class="divider-dot"></span>
-                    <span class="divider-dot"></span>
-                </div>
+    <div class="scroll-container" id="main">
+        <!-- HERO -->
+        <section class="section hero" id="hero">
+            <div class="hero-badge">Save The Date</div>
+            <p class="hero-title">Dengan penuh sukacita</p>
+            <h1 class="hero-names">Ayu <span class="amp">&amp;</span> Budi</h1>
+            <div class="hero-venue-badge">
+                <span class="dot"></span>
+                <span>Gedung Serbaguna Cahaya · 12 Desember 2026</span>
+            </div>
+            <div class="hero-scroll-hint" aria-hidden="true">
+                <div class="mouse"></div>
+                <span>Scroll</span>
+            </div>
+        </section>
 
-                <div class="details-box">
-                    <p itemprop="description">
-                        Allah swt berfirman:<br>
-                        <em>"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu merasa tenang kepada-Nya."</em><br>
-                        <small>(QS. Ar-Rum: 21)</small>
-                    </p>
-                </div>
+        <!-- QUOTE -->
+        <section class="section quote-section" id="quote">
+            <div class="quote-mark">&#8220;</div>
+            <p class="arabic">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا</p>
+            <div class="ornament-divider">
+                <span class="line"></span>
+                <span class="diamond"></span>
+                <span class="line"></span>
+            </div>
+            <p class="quote-text">Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu merasa tenang kepada-Nya.</p>
+            <p class="quote-ref">— QS. Ar-Rum : 21</p>
+        </section>
 
-                <p class="quote">
-                    Doa restu dari Bapak/Ibu/Saudara/i menjadi kenangan indah yang tak ternilai bagi kami berdua.
-                </p>
-            </section>
-            <aside class="art" aria-hidden="true">
-                <div class="monogram-outer">
-                    <div class="monogram" aria-label="Inisial Ayu dan Budi">AB</div>
+        <!-- EVENTS -->
+        <section class="section events-section" id="events">
+            <p class="events-title">Acara Pernikahan</p>
+            <div class="events-grid">
+                <div class="event-card">
+                    <span class="event-label">Akad Nikah</span>
+                    <span class="event-time">08.00 – 10.00</span>
+                    <span class="event-loc">Gedung Serbaguna Cahaya</span>
+                    <span class="date-tag">Sabtu, 12 Desember 2026</span>
                 </div>
-                <p class="art-text">Mohon doa restu dan kehadiran Anda untuk merayakan hari bahagia kami.</p>
-            </aside>
-        </article>
+                <div class="event-card">
+                    <span class="event-label">Resepsi</span>
+                    <span class="event-time">11.00 – 13.00</span>
+                    <span class="event-loc">Ballroom Tengah</span>
+                    <span class="date-tag">Sabtu, 12 Desember 2026</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- COUPLE -->
+        <section class="section couple-section" id="couple">
+            <div class="monogram-wrap" aria-hidden="true">
+                <div class="monogram-ring outer"></div>
+                <div class="monogram-ring inner"></div>
+                <div class="monogram">AB</div>
+            </div>
+            <p class="couple-text">
+                Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu merasa tenang kepada-Nya. Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menjadikan rasa cinta dan kasih sayang di antara kalian.
+            </p>
+            <p class="couple-blessing">Doa restu dari Bapak/Ibu/Saudara/i menjadi kenangan indah yang tak ternilai bagi kami berdua.</p>
+        </section>
+
+       
     </div>
+
+    <script>
+        const sections = document.querySelectorAll('.section');
+        const navDots = document.querySelectorAll('.dot-nav a');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    navDots.forEach(dot => {
+                        dot.classList.toggle('active', dot.getAttribute('href') === '#' + id);
+                    });
+                }
+            });
+        }, {
+            root: document.querySelector('.scroll-container'),
+            threshold: 0.5
+        });
+
+        sections.forEach(section => observer.observe(section));
+
+        navDots.forEach(dot => {
+            dot.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(dot.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
