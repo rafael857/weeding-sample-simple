@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Undangan pernikahan Ayu & Budi - Sabtu, 12 Desember 2026">
+    <meta name="theme-color" content="#b77a6c">
+    <title>Undangan Pernikahan - Ayu &amp; Budi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #faf6f2;
+            --accent: #b77a6c;
+            --accent-light: #d4a59a;
+            --muted: #8b7e76;
+            --gold: #c9a96e;
+            --card: #ffffff;
+            --text: #2d2926;
+            --focus-ring: 0 0 0 3px rgba(183,122,108,0.4);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: linear-gradient(180deg, var(--bg) 0%, #fff 100%);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--accent);
+            color: #fff;
+            padding: 8px 16px;
+            z-index: 100;
+            text-decoration: none;
+            border-radius: 0 0 8px 0;
+            transition: top 0.3s;
+        }
+        .skip-link:focus { top: 0; }
+
+        .wrapper {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+        .card {
+            background: var(--card);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(45,41,38,0.08), 0 8px 20px rgba(45,41,38,0.04);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            position: relative;
+        }
+        @media (max-width: 860px) {
+            .card { grid-template-columns: 1fr; }
+            .art { order: -1; }
+            .content { padding: 36px 28px; }
+            .names { font-size: 32px; }
+            .title { font-size: 26px; }
+        }
+
+        .content {
+            padding: 56px 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 20px;
+        }
+        .ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: var(--accent);
+            opacity: 0.7;
+            font-size: 14px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .ornament::before,
+        .ornament::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            max-width: 60px;
+        }
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--accent);
+            font-size: 22px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            line-height: 1.4;
+        }
+        .names {
+            font-family: 'Playfair Display', serif;
+            font-size: 44px;
+            color: var(--text);
+            font-weight: 700;
+            line-height: 1.15;
+            position: relative;
+            display: inline-block;
+        }
+        .names .amp {
+            color: var(--accent);
+            font-style: italic;
+            font-weight: 400;
+            margin: 0 6px;
+        }
+        .meta {
+            color: var(--muted);
+            font-size: 15px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            line-height: 1.8;
+        }
+        .meta strong {
+            color: var(--text);
+            font-weight: 500;
+        }
+        .details-box {
+            margin-top: 12px;
+            padding: 24px;
+            background: linear-gradient(135deg, #fdf9f6 0%, #fdf5f1 100%);
+            border-radius: 14px;
+            border: 1px solid rgba(183,122,108,0.12);
+            position: relative;
+        }
+        .details-box::before {
+            content: "";
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+            opacity: 0.5;
+        }
+        .details-box p {
+            color: var(--muted);
+            font-size: 15px;
+            text-align: center;
+            line-height: 1.7;
+        }
+        .event-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 8px;
+        }
+        @media (max-width: 500px) {
+            .event-row { grid-template-columns: 1fr; }
+        }
+        .event-item {
+            text-align: center;
+            padding: 16px 12px;
+            background: #fff;
+            border-radius: 10px;
+            border: 1px solid rgba(183,122,108,0.1);
+        }
+        .event-item .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .event-item .time {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            color: var(--text);
+            font-weight: 700;
+        }
+        .event-item .venue {
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+        .quote {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--accent);
+            font-size: 16px;
+            margin-top: 12px;
+            position: relative;
+            padding: 0 20px;
+        }
+        .quote::before,
+        .quote::after {
+            content: '"';
+            font-size: 32px;
+            color: var(--accent-light);
+            position: absolute;
+            opacity: 0.5;
+            font-family: 'Playfair Display', serif;
+        }
+        .quote::before { top: -8px; left: -4px; }
+        .quote::after { bottom: -20px; right: -4px; }
+
+        .art {
+            background: linear-gradient(180deg, #f7ede6 0%, #fdf6f1 50%, #fef9f6 100%);
+            padding: 48px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        .art::before {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(201,169,110,0.08) 0%, transparent 70%);
+            top: -80px;
+            right: -80px;
+        }
+        .art::after {
+            content: "";
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(183,122,108,0.06) 0%, transparent 70%);
+            bottom: -40px;
+            left: -40px;
+        }
+        .monogram-outer {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .monogram-outer::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 1px solid rgba(183,122,108,0.25);
+            animation: rotate 30s linear infinite;
+        }
+        .monogram-outer::after {
+            content: "";
+            position: absolute;
+            inset: 12px;
+            border-radius: 50%;
+            border: 1px dashed rgba(201,169,110,0.3);
+            animation: rotate 20s linear infinite reverse;
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .monogram {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: conic-gradient(from 45deg at 50% 50%, rgba(183,122,108,0.18), rgba(201,169,110,0.1), rgba(183,122,108,0.18));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            color: var(--accent);
+            font-size: 52px;
+            font-weight: 700;
+            box-shadow: 0 12px 32px rgba(183,122,108,0.15);
+            position: relative;
+            z-index: 1;
+        }
+        .art-text {
+            max-width: 240px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 8px 0;
+        }
+        .divider-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0.5;
+        }
+        footer {
+            text-align: center;
+            padding: 28px;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+        footer a:hover { text-decoration: underline; }
+        footer a:focus {
+            outline: none;
+            box-shadow: var(--focus-ring);
+            border-radius: 4px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .monogram-outer::before,
+            .monogram-outer::after { animation: none; }
+        }
+        @media print {
+            body { background: #fff; }
+            .card { box-shadow: none; border-radius: 0; }
+            .monogram-outer::before,
+            .monogram-outer::after { animation: none; }
+        }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main">Lewati ke konten utama</a>
+    <div class="wrapper">
+        <article class="card" itemscope itemtype="https://schema.org/Event">
+            <section class="content" id="main">
+                <div class="ornament">The Wedding</div>
+                <p class="title">Dengan penuh sukacita</p>
+                <h1 class="names">
+                    <span itemprop="name">Ayu</span>
+                    <span class="amp">&amp;</span>
+                    <span itemprop="name">Budi</span>
+                </h1>
+                <p class="meta">
+                    <time datetime="2026-12-12T10:00:00+07:00" itemprop="startDate">
+                        <strong>Sabtu, 12 Desember 2026</strong><br>
+                        10.00 WIB – Selesai
+                    </time>
+                </p>
+
+                <div class="event-row" itemprop="location" itemscope itemtype="https://schema.org/Place">
+                    <div class="event-item">
+                        <div class="label">Akad Nikah</div>
+                        <div class="time">08.00 - 10.00</div>
+                        <div class="venue" itemprop="name">Gedung Serbaguna Cahaya</div>
+                    </div>
+                    <div class="event-item">
+                        <div class="label">Resepsi</div>
+                        <div class="time">11.00 - 13.00</div>
+                        <div class="venue" itemprop="name">Ballroom Tengah</div>
+                    </div>
+                </div>
+
+                <div class="divider">
+                    <span class="divider-dot"></span>
+                    <span class="divider-dot"></span>
+                    <span class="divider-dot"></span>
+                </div>
+
+                <div class="details-box">
+                    <p itemprop="description">
+                        Allah swt berfirman:<br>
+                        <em>"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu merasa tenang kepada-Nya."</em><br>
+                        <small>(QS. Ar-Rum: 21)</small>
+                    </p>
+                </div>
+
+                <p class="quote">
+                    Doa restu dari Bapak/Ibu/Saudara/i menjadi kenangan indah yang tak ternilai bagi kami berdua.
+                </p>
+            </section>
+            <aside class="art" aria-hidden="true">
+                <div class="monogram-outer">
+                    <div class="monogram" aria-label="Inisial Ayu dan Budi">AB</div>
+                </div>
+                <p class="art-text">Mohon doa restu dan kehadiran Anda untuk merayakan hari bahagia kami.</p>
+            </aside>
+        </article>
+    </div>
+</body>
+</html>
